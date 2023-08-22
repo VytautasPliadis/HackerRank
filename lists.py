@@ -41,7 +41,6 @@ class ListModifier:
             self.reverse()
 
 
-
 if __name__ == '__main__':
     arr = ListModifier()
     N = int(input())
