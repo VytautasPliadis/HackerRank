@@ -12,7 +12,7 @@ class StudentDatabase:
 
     def get_students(self, name):
         scores = self.students.get(name)
-        avg = sum(scores)/len(scores)
+        avg = sum(scores) / len(scores)
         avg = round(avg, 2)
         return "{:.2f}".format(avg)
 
