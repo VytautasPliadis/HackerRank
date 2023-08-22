@@ -47,15 +47,3 @@ if __name__ == '__main__':
     N = int(input())
     for _ in range(N):
         arr.comand_checker()
-
-
-'''
-7
-insert 0 5
-remove 5
-append 3
-append 2
-sort
-pop
-print
-'''
