@@ -1,36 +1,24 @@
+
 class StrValidator:
-    def __init__(self): #cia biski pakoreguot
-        self.input_list = list(input_list.replace(" ", "")) #cia biski pakoreguot
-        self.alphanumeric = False
-        self.letters = False
-        self.decimals = False
-        self.lower_char = False
-        self.upper_char = False
+    def __init__(self, input_string):
+        self.input_list = list(input_string.strip())
         if len(self.input_list) > 1000:
             raise ValueError('Max 1000 chars')
-
-    def __setattr__(self, input_list, **kwargs):  #cia biski pakoreguot
-        if len(self.input_list) > 1000:
-            raise ValueError('Max 1000 chars')
-        super().__setattr__(input_list)  # Call the parent class's __setattr__ method
-
-    def __call__(self):
-        for _ in self.input_list:
-            if _.isalnum():
-                self.alphanumeric = True
-            if _.isalpha():
-                self.letters = True
-            if _.isdecimal():
-                self.decimals = True
-            if _.islower():
-                self.lower_char = True
-            if _.isupper():
-                self.upper_char = True
+        self.input_list = list(input_string.strip())
+        self.alphanumeric = any(char.isalnum() for char in self.input_list)
+        self.letters = any(char.isalpha() for char in self.input_list)
+        self.decimals = any(char.isdecimal() for char in self.input_list)
+        self.lower_char = any(char.islower() for char in self.input_list)
+        self.upper_char = any(char.isupper() for char in self.input_list)
 
     def __str__(self):
         return f'{self.alphanumeric}\n{self.letters}\n{self.decimals}\n{self.lower_char}\n{self.upper_char}'
 
 
 if __name__ == '__main__':
-    string1 = StrValidator(input())
+    input_string = input()
+    string1 = StrValidator(input_string)
     print(string1)
+
+VytautasPliadis
+Customer4-Abruptly7-Emphases1-Class5
