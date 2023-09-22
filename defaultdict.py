@@ -22,3 +22,24 @@ if __name__ == '__main__':
         dd_list['A'].append(get_valid_input())
     for _ in range(n):
         dd_list['B'].append(get_valid_input())
+
+    print(dd_list)
+    #
+
+    for i in dd_list['B']:
+        index_list = []
+        for index, value in enumerate(dd_list['A']):
+            if value == i:
+                index_list.append(index + 1)
+        print(index_list)
+
+'''
+5 2
+a
+a
+b
+a
+b
+a
+b
+'''
