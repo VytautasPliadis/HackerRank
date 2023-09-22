@@ -1,4 +1,14 @@
 def get_keys_by_value(dictionary, target_value):
+    """
+    Retrieve keys from a dictionary that match a specific value.
+
+    Args:
+        dictionary (dict): The dictionary to search in.
+        target_value: The value to match in the dictionary.
+
+    Returns:
+        list: A sorted list of keys that correspond to the target value.
+    """
     keys = []
     for key, value in dictionary.items():
         if value == target_value:
@@ -7,6 +17,18 @@ def get_keys_by_value(dictionary, target_value):
 
 
 class StudentDatabase:
+    """
+        A class representing a student database.
+
+        Attributes:
+            students (dict): A dictionary to store student names as keys and their scores as values.
+
+        Methods:
+            add_student(name, score):
+                Add a student to the database with their name and score.
+            get_students():
+                Retrieve a sorted list of student names who have the second lowest score.
+    """
     def __init__(self):
         self.students = {}
 
