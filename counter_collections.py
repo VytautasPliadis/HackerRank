@@ -1,35 +1,54 @@
 from collections import Counter
 
 
-def validate_input(shoes_quantity, customers_number, shoes_list):
-    if not (1 < shoes_quantity <= 1000 and 1 < customers_number <= 1000):
-        raise ValueError('Shoes quantity and customers number must be between 2 and 1000')
-    if any(size < 2 or size > 20 for size in shoes_list):
-        raise ValueError('Invalid shoe sizes. Sizes must be between 2 and 20.')
+class Customer:
+    def __init__(self, desired_shoe_nr, willing_to_pay):
+        self.desired_shoe_nr = desired_shoe_nr
+        self.willing_to_pay = willing_to_pay
 
 
-def customer_transaction(desired_shoe_nr, shoes_dict, willing_to_pay, revenue_from_shoes):
-    if desired_shoe_nr in shoes_dict and 20 <= willing_to_pay <= 100:
-        shoes_dict[desired_shoe_nr] -= 1
-        revenue_from_shoes += willing_to_pay
-        if shoes_dict[desired_shoe_nr] == 0:
-            del shoes_dict[desired_shoe_nr]
-    return shoes_dict, revenue_from_shoes
+class ShoeStore:
+    def __init__(self, shoes_quantity, shoes_list):
+        self.shoes_inventory = Counter(shoes_list)
+        self.validate_input(shoes_quantity, len(shoes_list))
+        self.revenue = 0
+
+    def validate_input(self, shoes_quantity, num_shoes):
+        if not (1 < shoes_quantity <= 1000 and 1 < num_shoes <= 1000):
+            raise ValueError('Shoes quantity and shoes list length must be between 2 and 1000')
+        if any(size < 2 or size > 20 for size in self.shoes_inventory):
+            raise ValueError('Invalid shoe sizes. Sizes must be between 2 and 20.')
+
+    def customer_transaction(self, customer):
+        if customer.desired_shoe_nr in self.shoes_inventory and 20 <= customer.willing_to_pay <= 100:
+            self.shoes_inventory[customer.desired_shoe_nr] -= 1
+            self.revenue += customer.willing_to_pay
+            if self.shoes_inventory[customer.desired_shoe_nr] == 0:
+                del self.shoes_inventory[customer.desired_shoe_nr]
+
+    def process_customers(self, customers):
+        for customer in customers:
+            self.customer_transaction(customer)
+
+    def get_revenue(self):
+        return self.revenue
 
 
 def main():
-    shoes_quantity = int(input())
-    shoes_list = list(map(int, input().split()))
-    shoes_dict = Counter(shoes_list)
-    customers_number = int(input())
-    validate_input(shoes_quantity, customers_number, shoes_list)
-    revenue = 0
+    shoes_quantity = int(input("Enter the initial quantity of shoes: "))
+    shoes_list = list(map(int, input("Enter the list of shoe sizes: ").split()))
+    customers_number = int(input("Enter the number of customers: "))
 
+    customers = []
     for _ in range(customers_number):
-        desired_shoe_nr, willing_to_pay = map(int, input().split())
-        shoes_dict, revenue = customer_transaction(desired_shoe_nr, shoes_dict, willing_to_pay, revenue)
+        desired_shoe_nr, willing_to_pay = map(int, input(
+            "Enter desired shoe size and willing to pay (e.g., 8 50): ").split())
+        customer = Customer(desired_shoe_nr, willing_to_pay)
+        customers.append(customer)
 
-    print(revenue)
+    store = ShoeStore(shoes_quantity, shoes_list)
+    store.process_customers(customers)
+    print("Total revenue:", store.get_revenue())
 
 
 if __name__ == '__main__':
