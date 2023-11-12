@@ -11,7 +11,7 @@ a_tuple_number = 0
 total_tuple_num = 0
 
 # Total combinations of char_list with num_indices_k
-comb_list = list(itertools.combinations(char_list, num_indices_k))
+tuple_list = list(itertools.combinations(char_list, num_indices_k))
 for c in comb_list:
     total_tuple_num += 1
     a_tuple_number += 'a' in c
@@ -19,3 +19,20 @@ for c in comb_list:
 probability_a = a_tuple_number / total_tuple_num
 probability_a = round(probability_a, 4)
 print(probability_a)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+for c in tuple_list:
+    a_tuple_number += 'a' in c
